@@ -1,0 +1,16 @@
+<h1>{{user.username}} statistics:</h1>
+{{#if user.blocked}}
+  <h1>Blocked</h1>
+{{/if}}
+<p>{{user.firstName}} {{user.lastName}}</p>
+{{#if isAdmin}}
+  {{#if user.blocked}}
+    <form id="unblock" action="/users/unblock/{{user._id}}" method="post"></form>
+    <a href="javascript:document.getElementById('unblock').submit()">Unblock</a>
+  {{else}}
+    <form id="block" action="/users/block/{{user._id}}" method="post"></form>
+    <a href="javascript:document.getElementById('block').submit()">Block</a>
+  {{/if}}
+{{/if}}
+
+<h2>Data:</h2>
