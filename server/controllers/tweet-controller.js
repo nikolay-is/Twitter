@@ -11,6 +11,7 @@ function getHtag (str) {
   while (str.charAt(0) === '#' && (len >= 0)) {
     str = str.slice(1)
     len = str.length - 1
+    str = str.replace(/#+$/, '')
   }
   return str
 }
@@ -22,6 +23,7 @@ function getHandle (str) {
     str = str.slice(1)
     len = str.length - 1
   }
+  str = str.replace(/@+$/, '')
   return str
 }
 

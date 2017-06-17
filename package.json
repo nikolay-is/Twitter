@@ -4,7 +4,7 @@
   "description": "Let's build Twitter",
   "main": "index.js",
   "scripts": {
-    "start": "node insdex.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",

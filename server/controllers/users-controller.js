@@ -80,6 +80,8 @@ module.exports = {
   profile: (req, res) => {
     let username = req.params.username
     User.findOne({ username: username })
+      .sort('-date')
+      .limit(100)
       .then(user => {
         Tweet.find({ author: user.id })
           .then(tweets => {

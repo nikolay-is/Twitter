@@ -14,6 +14,10 @@
   height: 2em;
   font-size: 1em;
 }
+.image {
+  max-width: 100%;
+  align-content: center;
+}
 
 .red {
   color: red;
@@ -109,6 +113,7 @@ textarea.input-field {
 
 .form-group {
   padding: 10px;
+  width: 100%;
 }
 
 .btn {
