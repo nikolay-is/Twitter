@@ -1,14 +1,15 @@
 <h2>List tweets with tag: {{tagName}}</h2>
 {{!--<div class="items">--}}
   {{#each tweets}}
-    <div class="item">
+    <div class="items">
       <div class="form-group">
-        <p><strong>{{this.author.username}}</strong> <i>({{this.author.firstName}} {{this.author.lastName}})</i> <span>&nbsp;<strong>Likes:</strong>&nbsp;<i>{{this.likes}}</i>&nbsp;<strong>&nbsp;Views:&nbsp;</strong><i>{{this.views}}</i></span></p>
+        <p><a class="btn btn-primary" href="/profile/{{this.author.username}}">{{this.author.username}}</a>
+          <i>({{this.author.firstName}} {{this.author.lastName}})</i> <span>&nbsp;<strong>Likes:</strong>&nbsp;<i>{{this.likes}}</i>&nbsp;<strong>&nbsp;Views:&nbsp;</strong><i>{{this.views}}</i></span></p>
         <p>{{this.date}}</p>
         <p>{{this.message}}</p>
         <div class="form-group">Tags: 
           {{#each this.tags}}
-            <a class="btn btn-success" href="/tag/{{this}}">{{this}}</a>
+            <a class="btn btn-warning" href="/tag/{{this}}">{{this}}</a>
           {{/each}}
          </div>
       </div>
@@ -27,6 +28,7 @@
           <a class="btn btn-danger" href="/delete/{{this._id}}">Delete</a>
         {{/if}}
       </div>
+    </div>
   {{else}}
     <p>No data to show.</p>
   {{/each}}

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:400,900');
 .container {
-  padding: 0 20%;
+  /*padding: 0 20%;*/
+  padding: 0 15%;
   /*border: 1px solid grey;*/
 }
 
@@ -119,6 +120,7 @@ textarea.input-field {
   text-decoration-line: none;
   margin: 5px;
   min-width: 100px;
+  text-align: center
 }
 
 .btn:hover {
@@ -190,7 +192,9 @@ textarea.input-field {
   display: flex;
   align-content: flex-start;
   flex-wrap: wrap;
-  /*border: 1px solid blue;*/
+  border: 1px solid lightgray;
+  border-radius: 15px;
+  margin-bottom: 10px;
 }
 
 footer {

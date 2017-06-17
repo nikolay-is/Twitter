@@ -15,6 +15,16 @@ function getHtag (str) {
   return str
 }
 
+function getHandle (str) {
+  str = str.slice(str.indexOf('@'))
+  let len = str.length - 1
+  while (str.charAt(0) === '@' && (len >= 0)) {
+    str = str.slice(1)
+    len = str.length - 1
+  }
+  return str
+}
+
 module.exports = {
   addGet: (req, res) => {
     res.render('tweet/add')
@@ -35,23 +45,57 @@ module.exports = {
     // message = 'Hello, Twitter! This is my afirst bbmessa ge in your system!'
 
     let tags = []
+    let handles = []
     let words = message.split(/[ .,!?]+/g)
     let len = words.length - 1
     for (let i = 0; i <= len; i++) {
       if ((words[i].length > 0) && (words[i].indexOf('#') > -1)) {
-        let tag = getHtag(words[i])
+        let tag = getHtag(words[i]).toLowerCase()
         if (tag.length - 1 > -1) {
-          tags.push(tag.toLowerCase())
+          if (!tags.includes(tag)) {
+            tags.push(tag)
+          }
+        }
+      }
+      if ((words[i].length > 0) && (words[i].indexOf('@') > -1)) {
+        let handle = getHandle(words[i])
+        if (handle.length - 1 > -1) {
+          if (!handles.includes(handle)) {
+            handles.push(handle)
+          }
         }
       }
     }
 
-    Tweet.create({
+    let tweetObj = {
       message: message,
       author: req.user.id,
-      tags: tags
-    })
-    .then(() => {
+      tags: tags,
+      handles: handles
+    }
+    Tweet.create(tweetObj)
+    .then((tweet) => {
+      let len = handles.length - 1
+      for (let i = 0; i <= len; i++) {
+        let handledUser = handles[i]
+        User.findOne({ username: `${handledUser}` })
+          .then(user => {
+            if (user) {
+              Tweet.create({
+                message: tweetObj.message,
+                author: user.id,
+                tags: tweetObj.tags
+                // ,
+                // handles: tweetObj.handles
+              })
+              .then(tweet => {
+              })
+              .catch(err => {
+                console.log(errorHandler.handleMongooseError(err))
+              })
+            }
+          })
+      }
       res.redirect('/')
     })
     .catch(err => {
@@ -73,13 +117,24 @@ module.exports = {
     let message = req.body.message
 
     let tags = []
+    let handles = []
     let words = message.split(/[ .,!?]+/g)
     let len = words.length - 1
     for (let i = 0; i <= len; i++) {
       if ((words[i].length > 0) && (words[i].indexOf('#') > -1)) {
-        let tag = getHtag(words[i])
+        let tag = getHtag(words[i]).toLowerCase()
         if (tag.length - 1 > -1) {
-          tags.push(tag.toLowerCase())
+          if (!tags.includes(tag)) {
+            tags.push(tag)
+          }
+        }
+      }
+      if ((words[i].length > 0) && (words[i].indexOf('@') > -1)) {
+        let handle = getHandle(words[i])
+        if (handle.length - 1 > -1) {
+          if (!handles.includes(handle)) {
+            handles.push(handle)
+          }
         }
       }
     }
@@ -88,6 +143,7 @@ module.exports = {
       .then(tweet => {
         tweet.message = message
         tweet.tags = tags
+        tweet.handles = handles
         tweet.save()
         .then((t) => {
           res.redirect('/')

@@ -3,13 +3,13 @@
 <h2>Data:</h2>
 
 {{#each tweets}}
-    <div class="item">
+    <div class="items">
       <div class="form-group">
         <p>{{this.date}}</p>
         <p>{{this.message}}</p>
          <div class="form-group">Tags: 
           {{#each this.tags}}
-            <a class="btn btn-success" href="/tag/{{this}}">{{this}}</a>
+            <a class="btn btn-warning" href="/tag/{{this}}">{{this}}</a>
           {{/each}}
          </div>
       </div>

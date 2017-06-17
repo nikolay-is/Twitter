@@ -1,14 +1,14 @@
 <h2>Admins</h2>
 {{#each admins}}
-  <div class="item">
+  <div class="items">
     <div class="form-group">
       <p><strong>{{this.username}}</strong> <i>({{this.firstName}} {{this.lastName}})</i></p>
       {{#if this.blocked}}
-        <form class="form center-form" id="unblock" action="/users/unblock/{{this._id}}" method="post"></form>
-        <a class="btn btn-success" href="javascript:document.getElementById('unblock').submit()">Unblock</a>
+        <form class="form center-form" id="unblock{{this._id}}" action="/users/unblock/{{this._id}}" method="post"></form>
+        <a class="btn btn-success" href="javascript:document.getElementById('unblock{{this._id}}').submit()">Unblock</a>
       {{else}}
-        <form class="form center-form" id="block" action="/users/block/{{this._id}}" method="post"></form>
-        <a class="btn btn-danger" href="javascript:document.getElementById('block').submit()">Block</a>
+        <form class="form center-form" id="block{{this._id}}" action="/users/block/{{this._id}}" method="post"></form>
+        <a class="btn btn-danger" href="javascript:document.getElementById('block{{this._id}}').submit()">Block</a>
       {{/if}}
       <a class="btn btn-success" href="/profile/{{this.username}}">{{this.username}}</a>
     </div>
