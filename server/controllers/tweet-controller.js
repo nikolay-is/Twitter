@@ -26,12 +26,12 @@ module.exports = {
       return
     }
 
-    let tags = []
     // message = 'Hello, Twitter! This is my #first #message in aa### your system!'
     // message = 'Hello, Twitter! This is my a###first bb#messa ge## in your system!'
     // let separator = [' ', '.', ',', '!', '?']
     // message = 'Hello, Twitter! This is my afirst bbmessa ge in your system!'
 
+    let tags = []
     let words = message.split(/[ .,!?]+/g)
     let len = words.length - 1
     for (let i = 0; i < len; i++) {
@@ -69,9 +69,22 @@ module.exports = {
     let id = req.params.id
     let message = req.body.message
 
+    let tags = []
+    let words = message.split(/[ .,!?]+/g)
+    let len = words.length - 1
+    for (let i = 0; i < len; i++) {
+      if ((words[i].length > 0) && (words[i].indexOf('#') > -1)) {
+        let tag = getHtag(words[i])
+        if (tag.length - 1 > -1) {
+          tags.push(tag.toLowerCase())
+        }
+      }
+    }
+
     Tweet.findById(id)
       .then(tweet => {
         tweet.message = message
+        tweet.tags = tags
         tweet.save()
         .then((t) => {
           res.redirect('/')
