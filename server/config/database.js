@@ -3,6 +3,7 @@ const User = require('../models/User')
 // const Xxx = require('../models/Xxx')
 
 // require('../models/xxx')
+require('../models/Tweet')
 
 mongoose.Promise = global.Promise
 

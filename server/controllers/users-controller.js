@@ -108,7 +108,6 @@ module.exports = {
   },
   block: (req, res) => {
     let userId = req.params.id
-    console.log(userId)
     User.findByIdAndUpdate(userId, { $set: { blocked: true } })
       .then(user => {
         res.redirect(`/profile/${user.username}`)
@@ -121,7 +120,6 @@ module.exports = {
   },
   unblock: (req, res) => {
     let userId = req.params.id
-    console.log(userId)
     User.findByIdAndUpdate(userId, { $set: { blocked: false } })
       .then(user => {
         res.redirect(`/profile/${user.username}`)

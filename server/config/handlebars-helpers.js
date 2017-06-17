@@ -7,10 +7,22 @@ Handlebars.registerHelper('ifCond', function (v1, v2, options) {
   return options.inverse(this)
 })
 
-Handlebars.registerHelper('selected', function (option, value) {
-  if (option === value) {
-    return ' selected'
+// Handlebars.registerHelper('selected', function (option, value) {
+//   if (option === value) {
+//     return ' selected'
+//   } else {
+//     return ''
+//   }
+// })
+
+Handlebars.registerHelper('hasLiked', function (user, itemId, options) {
+  if (arguments.length < 3) {
+    throw new Error('Handlebars Helper equal needs 2 parameters')
+  }
+
+  if (user.likedItems.indexOf(itemId) < 0) {
+    return options.inverse(this)
   } else {
-    return ''
+    return options.fn(this)
   }
 })

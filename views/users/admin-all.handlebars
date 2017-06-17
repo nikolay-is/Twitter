@@ -1,6 +1,10 @@
-<h1>Admins</h1>
-<ul>
-  {{#each admins}}
-    <li><a href="/profile/{{this.username}}">{{this.username}}</a></li>
-  {{/each}}
-</ul>
+<h2>Admins</h2>
+<div class="items">
+  <ul>
+    {{#each admins}}
+      <li>
+        <a class="form-btn btn btn-success" href="/profile/{{this.username}}">{{this.username}}</a>
+      </li>
+    {{/each}}
+  </ul>
+</div>

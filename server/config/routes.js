@@ -18,6 +18,15 @@ module.exports = (app) => {
   app.post('/admins/add', auth.isInRole('Admin'), controllers.users.adminPost)
   app.get('/admins/all', auth.isInRole('Admin'), controllers.users.all)
 
+  app.get('/tweet', auth.isAuthenticated, controllers.tweet.addGet)
+  app.post('/tweet', auth.isAuthenticated, controllers.tweet.addPost)
+  app.get('/edit/:id', auth.isInRole('Admin'), controllers.tweet.editGet)
+  app.post('/edit/:id', auth.isInRole('Admin'), controllers.tweet.editPost)
+  app.get('/delete/:id', auth.isInRole('Admin'), controllers.tweet.deleteGet)
+  app.post('/delete/:id', auth.isInRole('Admin'), controllers.tweet.deletePost)
+  app.post('/like/:id', auth.isInRole('Admin'), controllers.tweet.like)
+  app.post('/dislike/:id', auth.isInRole('Admin'), controllers.tweet.dislike)
+
   app.all('*', (req, res) => {
     res.status(404)
     res.send('404 Not Found!')
