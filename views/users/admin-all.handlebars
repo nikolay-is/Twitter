@@ -1,10 +1,16 @@
 <h2>Admins</h2>
-<div class="items">
-  <ul>
-    {{#each admins}}
-      <li>
-        <a class="form-btn btn btn-success" href="/profile/{{this.username}}">{{this.username}}</a>
-      </li>
-    {{/each}}
-  </ul>
-</div>
+{{#each admins}}
+  <div class="item">
+    <div class="form-group">
+      <p><strong>{{this.username}}</strong> <i>({{this.firstName}} {{this.lastName}})</i></p>
+      {{#if this.blocked}}
+        <form class="form center-form" id="unblock" action="/users/unblock/{{this._id}}" method="post"></form>
+        <a class="btn btn-success" href="javascript:document.getElementById('unblock').submit()">Unblock</a>
+      {{else}}
+        <form class="form center-form" id="block" action="/users/block/{{this._id}}" method="post"></form>
+        <a class="btn btn-danger" href="javascript:document.getElementById('block').submit()">Block</a>
+      {{/if}}
+      <a class="btn btn-success" href="/profile/{{this.username}}">{{this.username}}</a>
+    </div>
+  </div>
+{{/each}}

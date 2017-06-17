@@ -1,15 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:400,900');
-
-
-/*.menu li:after {
-  content: "\00a0";
-}
-.mb60 {
-  margin-bottom: 60px;
-}*/
-
-
-
 .container {
   padding: 0 20%;
   /*border: 1px solid grey;*/
@@ -28,7 +17,6 @@
 .red {
   color: red;
 }
-/*form*/
 
 h1, h2, h3, h4 {
   text-align: center;
@@ -45,7 +33,7 @@ body {
 }
 
 main {
-  border: 1px solid grey;
+  /*border: 1px solid grey;*/
   padding: 0 15px;
 }
 /*main {
@@ -189,7 +177,7 @@ textarea.input-field {
   /*width: 33%;*/
   width: 100%;
   display: inline-block;
-  border: 1px solid green;
+  /*border: 1px solid green;*/
 }
 
 .item-img {
@@ -202,7 +190,7 @@ textarea.input-field {
   display: flex;
   align-content: flex-start;
   flex-wrap: wrap;
-  border: 1px solid blue;
+  /*border: 1px solid blue;*/
 }
 
 footer {

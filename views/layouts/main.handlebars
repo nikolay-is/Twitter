@@ -13,12 +13,12 @@
         {{#if currentUser}}
           <li><a href="/tweet">Add tweet</a></li>
         {{/if}}
-        {{#if isAdmin}}
-          <li><a href="/admins/add">Add admin</a></li>
-        {{/if}}
         <li class="delimeter"></li>
+        {{#if isAdmin}}
+          <li class="align-right"><a href="/admins/add">Add admin</a></li>
+          <li class="align-right"><a href="/admins/all">Admins all</a></li>
+        {{/if}}
         {{#if currentUser}}
-          <li class="align-right"><a href="/profile/{{currentUser.username}}">{{currentUser.username}}</a></li>
           <li class="align-right">
               <form id="logout-form" action="/users/logout" method="POST"></form>
               <a href="javascript:document.getElementById('logout-form').submit()">Logout</a>
@@ -26,6 +26,9 @@
         {{else}}
           <li class="align-right"><a href="/users/register">Register</a></li>
           <li class="align-right"><a href="/users/login">Login</a></li>
+        {{/if}}
+        {{#if currentUser}}
+          <li class="align-right"><a href="/profile/{{currentUser.username}}">{{currentUser.username}}</a></li>
         {{/if}}
       </ul>
     </nav>

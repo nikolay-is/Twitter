@@ -6,8 +6,7 @@
         <p><strong>{{this.author.username}}</strong> <i>({{this.author.firstName}} {{this.author.lastName}})</i> <span>&nbsp;<strong>Likes:</strong>&nbsp;<i>{{this.likes}}</i>&nbsp;<strong>&nbsp;Views:&nbsp;</strong><i>{{this.views}}</i></span></p>
         <p>{{this.date}}</p>
         <p>{{this.message}}</p>
-        {{!--<p><strong>tags: </strong><i>{{this.tags}}</i></p>--}}
-        <div class="form-group">
+        <div class="form-group">Tags: 
           {{#each this.tags}}
             <a class="btn btn-success" href="/tag/{{this}}">{{this}}</a>
           {{/each}}

@@ -21,8 +21,11 @@ module.exports = {
   },
   addPost: (req, res) => {
     let message = req.body.message
-    if (message.lenght > 140) {
-      res.redirect('/')
+    if (message.length > 140) {
+      res.locals.globalError = `Message cannot be more than 140 characters`
+      res.render('tweet/add', {
+        message: message
+      })
       return
     }
 
@@ -34,7 +37,7 @@ module.exports = {
     let tags = []
     let words = message.split(/[ .,!?]+/g)
     let len = words.length - 1
-    for (let i = 0; i < len; i++) {
+    for (let i = 0; i <= len; i++) {
       if ((words[i].length > 0) && (words[i].indexOf('#') > -1)) {
         let tag = getHtag(words[i])
         if (tag.length - 1 > -1) {
@@ -72,7 +75,7 @@ module.exports = {
     let tags = []
     let words = message.split(/[ .,!?]+/g)
     let len = words.length - 1
-    for (let i = 0; i < len; i++) {
+    for (let i = 0; i <= len; i++) {
       if ((words[i].length > 0) && (words[i].indexOf('#') > -1)) {
         let tag = getHtag(words[i])
         if (tag.length - 1 > -1) {

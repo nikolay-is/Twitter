@@ -1,6 +1,7 @@
 const encryprion = require('../utilities/encryption')
 const mongoose = require('mongoose')
 const User = mongoose.model('User')
+const Tweet = mongoose.model('Tweet')
 
 const errorHandler = require('../utilities/error-handler')
 
@@ -34,7 +35,7 @@ module.exports = {
           roles: ['User']
         }).then(user => {
           req.logIn(user, (err, user) => {
-            if (err) { // locals - can access in all views and ...
+            if (err) {
               res.locals.globalError = err
               res.render('users/register', user)
             }
@@ -80,7 +81,13 @@ module.exports = {
     let username = req.params.username
     User.findOne({ username: username })
       .then(user => {
-        res.render('users/profile', { user: user })
+        Tweet.find({ author: user.id })
+          .then(tweets => {
+            res.render('users/profile', {
+              user: user,
+              tweets: tweets
+            })
+          })
       })
   },
   adminGet: (req, res) => {
@@ -110,7 +117,7 @@ module.exports = {
     let userId = req.params.id
     User.findByIdAndUpdate(userId, { $set: { blocked: true } })
       .then(user => {
-        res.redirect(`/profile/${user.username}`)
+        res.redirect('/admins/all')
       })
       .catch(err => {
         let message = errorHandler.handleMongooseError(err)
@@ -122,7 +129,7 @@ module.exports = {
     let userId = req.params.id
     User.findByIdAndUpdate(userId, { $set: { blocked: false } })
       .then(user => {
-        res.redirect(`/profile/${user.username}`)
+        res.redirect('/admins/all')
       })
       .catch(err => {
         let message = errorHandler.handleMongooseError(err)
