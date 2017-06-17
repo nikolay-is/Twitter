@@ -24,8 +24,9 @@ module.exports = (app) => {
   app.post('/edit/:id', auth.isInRole('Admin'), controllers.tweet.editPost)
   app.get('/delete/:id', auth.isInRole('Admin'), controllers.tweet.deleteGet)
   app.post('/delete/:id', auth.isInRole('Admin'), controllers.tweet.deletePost)
-  app.post('/like/:id', auth.isInRole('Admin'), controllers.tweet.like)
-  app.post('/dislike/:id', auth.isInRole('Admin'), controllers.tweet.dislike)
+  app.post('/like/:id', auth.isAuthenticated, controllers.tweet.like)
+  app.post('/dislike/:id', auth.isAuthenticated, controllers.tweet.dislike)
+  app.get('/tag/:tagName', controllers.tweet.showByTagName)
 
   app.all('*', (req, res) => {
     res.status(404)

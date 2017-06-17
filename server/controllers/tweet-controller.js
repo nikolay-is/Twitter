@@ -121,24 +121,52 @@ module.exports = {
     let id = req.params.id
     Tweet.findById(id)
       .then(tweet => {
-        User.findByIdAndUpdate(req.user.id, {
-          $addToSet: { likedItems: tweet.id }
-        })
-        .then(() => {
-          res.redirect('/')
-        })
+        tweet.likes = tweet.likes + 1
+        tweet.save()
+          .then(tweet => {
+            User.findByIdAndUpdate(req.user.id, {
+              $addToSet: { likedItems: tweet.id }
+            })
+            .then(() => {
+              res.redirect('/')
+            })
+          })
       })
   },
   dislike: (req, res) => {
     let id = req.params.id
     Tweet.findById(id)
       .then(tweet => {
-        User.findByIdAndUpdate(req.user.id, {
-          $pull: { likedItems: { $in: [tweet.id] } }
-        })
-        .then(() => {
-          res.redirect('/')
-        })
+        tweet.likes = tweet.likes - 1
+        tweet.save()
+          .then(tweet => {
+            User.findByIdAndUpdate(req.user.id, {
+              $pull: { likedItems: { $in: [tweet.id] } }
+            })
+            .then(() => {
+              res.redirect('/')
+            })
+          })
       })
+  },
+  showByTagName: (req, res) => {
+    let tagName = req.params.tagName
+
+    Tweet.find({
+      tags: { $in: [tagName] }
+    })
+    .populate('author')
+    .sort('-date')
+    .limit(100)
+    .then(tweets => {
+      for (let tweet of tweets) {
+        tweet.views++
+        tweet.save()
+      }
+      res.render(`tweet/tag`, {
+        tweets: tweets,
+        tagName: tagName
+      })
+    })
   }
 }
